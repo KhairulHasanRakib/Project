@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schulte Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .grid {
+            display: inline-block;
+            margin: 20px;
+            border-spacing: 5px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Schulte Table</h1>
+    <label for="gridSize">Grid Size:</label>
+    <select id="gridSize">
+          <option value="3">3x3</option>
+          <option value="4">4x4</option>
+          <option value="5">5x5</option>
+    </select>
+    <button onclick="generateGrid()">Generate Table</button>
+    <div id="gridContainer"></div>
+
+    <script>
+        function generateGrid() {
+            const gridSize = parseInt(document.getElementById('gridSize').value);
+            const gridContainer = document.getElementById('gridContainer');
+            gridContainer.innerHTML = '';
+
+            const numbers = Array.from({ length: gridSize * gridSize }, (_, i) => i + 1);
+            numbers.sort(() => Math.random() - 0.5);
+
+            const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+            for (let i = 0; i < gridSize; i++) {
+                const row = document.createElement('div');
+                row.classList.add('row'); // Added line to fix single column issue
+                for (let j = 0; j < gridSize; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    const index = i * gridSize + j;
+                    if (index < numbers.length) {
+                        cell.textContent = numbers[index];
+                        cell.style.backgroundColor = getRandomColor();
+                    }
+                    row.appendChild(cell);
+                }
+                gridContainer.appendChild(row);
+            }
+
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => {
+                    cell.classList.toggle('selected');
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

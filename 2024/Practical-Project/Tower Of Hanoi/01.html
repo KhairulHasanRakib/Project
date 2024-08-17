@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .tower {
+            display: inline-block;
+            width: 150px;
+            background-color: #ddd;
+            margin: 20px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .disk {
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 0;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tower of Hanoi</h1>
+    <div id="tower1" class="tower" onclick="moveDisk(1)">Tower 1</div>
+    <div id="tower2" class="tower" onclick="moveDisk(2)">Tower 2</div>
+    <div id="tower3" class="tower" onclick="moveDisk(3)">Tower 3</div>
+
+    <script>
+        // Number of disks
+        var numDisks = 4;
+
+        // Tower states
+        var towers = [[], [], []];
+
+        // Initialize towers
+        for (var i = numDisks; i >= 1; i--) {
+            towers[0].push(i);
+        }
+
+        // Update visual display of towers
+        function updateTowers() {
+            for (var i = 0; i < 3; i++) {
+                var towerDiv = document.getElementById('tower' + (i + 1));
+                towerDiv.innerHTML = 'Tower ' + (i + 1) + '<br>';
+                for (var j = 0; j < towers[i].length; j++) {
+                    var diskSize = towers[i][j];
+                    var diskDiv = document.createElement('div');
+                    diskDiv.className = 'disk';
+                    diskDiv.style.width = (diskSize * 30) + 'px'; // Adjust size based on disk number
+                    diskDiv.innerHTML = diskSize;
+                    towerDiv.appendChild(diskDiv);
+                }
+            }
+        }
+
+        // Move disk from source tower to destination tower
+        function moveDisk(towerIndex) {
+            if (towers[towerIndex - 1].length === 0 || canMove(towerIndex)) {
+                var disk = towers[selectedTower - 1].pop();
+                towers[towerIndex - 1].push(disk);
+                updateTowers();
+                if (checkWin()) {
+                    alert('Congratulations! You solved the Tower of Hanoi!');
+                }
+            } else {
+                alert('Invalid move!');
+            }
+        }
+
+        var selectedTower = null;
+
+        // Check if the move is valid
+        function canMove(towerIndex) {
+            if (selectedTower === null) {
+                selectedTower = towerIndex;
+                return false;
+            } else {
+                if (towers[towerIndex - 1].length === 0 || towers[selectedTower - 1][towers[selectedTower - 1].length - 1] < towers[towerIndex - 1][towers[towerIndex - 1].length - 1]) {
+                    selectedTower = null;
+                    return true;
+                } else {
+                    selectedTower = null;
+                    return false;
+                }
+            }
+        }
+
+        // Check if the game is won
+        function checkWin() {
+            return towers[0].length === 0 && towers[1].length === 0 && towers[2].length === numDisks;
+        }
+
+        // Initial setup
+        updateTowers();
+    </script>
+</body>
+
+</html>

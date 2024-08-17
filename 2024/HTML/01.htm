@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .time-column {
+            width: 80px;
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        .details {
+            padding: 10px;
+        }
+    </style>
+    <title>Daily Routine Table</title>
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="time-column">Time</th>
+                <th>Activity</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="time-column">08:00 AM</td>
+                <td>Morning Exercise</td>
+                <td class="details">30 minutes of jogging and stretching</td>
+            </tr>
+            <tr>
+                <td class="time-column">09:00 AM</td>
+                <td>Work on Project</td>
+                <td class="details">Research and development tasks</td>
+            </tr>
+            <tr>
+                <td class="time-column">12:30 PM</td>
+                <td>Lunch Break</td>
+                <td class="details">Healthy meal and short break</td>
+            </tr>
+            <tr>
+                <td class="time-column">02:00 PM</td>
+                <td>Meeting with Team</td>
+                <td class="details">Discuss project updates and goals</td>
+            </tr>
+            <tr>
+                <td class="time-column">04:30 PM</td>
+                <td>Learning Time</td>
+                <td class="details">Read articles and learn new skills</td>
+            </tr>
+            <tr>
+                <td class="time-column">06:00 PM</td>
+                <td>Free Time</td>
+                <td class="details">Relax, hobbies, and personal time</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

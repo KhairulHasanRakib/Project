@@ -1,0 +1,371 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="fonts/safari-pinned-tab.svg" color="#1e3937">
+  <meta name="apple-mobile-web-app-title" content="deen.ai">
+  <meta name="application-name" content="deen.ai">
+  <meta name="msapplication-TileColor" content="#1e3937">
+  <meta name="theme-color" content="#1e3937">
+
+  <!-- Primary Meta Tags -->
+  <title>deen.ai — Islamic AI assistant answering your questions</title>
+  <meta name="title" content="deen.ai — Islamic AI assistant answering your questions">
+  <meta name="description" content="I am an AI trained on the Qur'an, hadiths, and thousands of scholarly texts. A Muslim ChatGPT. Please ask me anything!">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://deen.ai/">
+  <meta property="og:title" content="deen.ai — Islamic AI assistant answering your questions">
+  <meta property="og:description" content="I am an AI trained on the Qur'an, hadiths, and thousands of scholarly texts. A Muslim ChatGPT. Please ask me anything!">
+  <meta property="og:image" content="images/preview-card.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://deen.ai/">
+  <meta property="twitter:title" content="deen.ai — Islamic AI assistant answering your questions">
+  <meta property="twitter:description" content="I am an AI trained on the Qur'an, hadiths, and thousands of scholarly texts. A Muslim ChatGPT. Please ask me anything!">
+  <meta property="twitter:image" content="https://deen.ai/preview-card.jpg">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <script src="https://unpkg.com/canvas-txt@3.0.0/build/index.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap');
+
+    * {
+      font-family: 'Kanit', sans-serif;
+    }
+  
+    /* https://coolors.co/palette/eef0f2-c8c9cb-bee8e5-3d736e-1e3937 */
+    :root {
+      --background-body: #1e3937;
+      --background: #3d736e;
+      --background-alt: #1e3937;
+      --text-main: #c8c9cb;
+      --text-bright: #eef0f2;
+      --text-muted: #c8c9cb;
+      --form-placeholder: #c8c9cb;
+      --scrollbar-thumb: #c8c9cb;
+      --scrollbar-thumb-hover: #eef0f2;
+      --links: #bee8e5;
+      --focus: #a9b0b3;
+      --border: #a9b0b3;
+      --button-hover: #a9b0b3;
+      --content-width: min(calc(100vw - 2rem), 800px);
+      --button-base: #3d736e;
+    }
+
+    body {
+      max-width: 500px;
+    }
+
+    textarea, input {
+      border: 1px solid var(--border);
+    }
+
+    button {
+      border-radius: 9999px;
+      max-width: 200px;
+      flex-grow: 1;
+      font-weight: bold;
+    }
+
+    canvas {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin-top: 30px;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    .content {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flex-row {
+      display: flex;
+      flex-direction: row;
+    }
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .w-full {
+      width: 100%;
+    }
+    .justify-center {
+      justify-content: center;
+    }
+    .items-center {
+      align-items: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+    <img src="fonts/logo-with-text.svg" style="height: 2.5em;">
+    <div id="infoButton" style="background-color: var(--background); width: 2em; height: 2em; text-align: center; line-height: 2em; border-radius: 999px; user-select: none; cursor: pointer; font-weight: bold;">?</div>
+    <dialog id="infoDialog" style="max-width: 500px;">
+      <header><h2 style="margin: 0;">About</h2></header>
+      <h3>Who made this?</h3>
+      <p>deen.ai is developed and maintained by me, <a href="https://yousefamar.com" target="_blank">Yousef</a>, in collaboration with <a href="https://sawa.global" target="_blank">Sawa</a> (it's not a coincidence that the colour scheme is the same)! Our mission is to leverage tech to empower all Muslims. The goal of deen.ai specifically is to explore how we can use the recent AI innovations to further this mission. The code for this website is open source and <a href="https://github.com/yousefamar/deen-ai" target="_blank">available on GitHub</a>. Feel free to email me at any time through <a href="mailto:salam@deen.ai?subject=Salam!&amp;body=Salam%20Yousef%2C%0D%0A%0D%0A" target="_blank">salam@deen.ai</a>.</p>
+      <h3>Privacy note</h3>
+      <p>I'm not a lawyer, so in English: deen.ai does not track you or collect any personal data. We store the questions and answers anonymously for the purpose of improving the model (especially to avoid incorrect answers that you flag) and if you sign up to the mailing list, then <a href="https://convertkit.com/" target="_blank">ConvertKit</a> stores your email address. Your email address will never be shared with third parties and has no connection to questions you ask.</p>
+      <h3>How is this free?</h3>
+      <p>At the moment, I'm bootstrapping the infrastructure for deen.ai out of my own pocket. If it becomes too expensive to run, I'll try to fund it through donations insha'Allah. Deen.ai may never generate profit, but with your support, may it generate thawaab for us all through the dawah it enables. Ameen.</p>
+      <div class="flex-row justify-center w-full" style="margin-top: 32px;">
+        <button id="closeButton" style="flex-grow: 1; max-width: 400px; background-color: var(--background);">OK</button>
+      </div>
+    </dialog>
+    <script>
+      document.querySelector('#infoButton').addEventListener('click', () => {
+        document.querySelector('#infoDialog').showModal();
+        // don't focus on button
+        document.querySelector('#infoDialog').querySelector('a').blur();
+      });
+      document.querySelector('#closeButton').addEventListener('click', () => {
+        document.querySelector('#infoDialog').close();
+      });
+    </script>
+  </div>
+
+  <div style="position: relative; width: 100%;">
+    <div id="page-1" class="content">
+      <p>I am an AI trained on the Qur'an, hadiths, and thousands of scholarly texts. Please help me learn to be more accurate by asking me a question you already know the answer to and selecting "flag" if the answer is dubious or incorrect.<br>Keep in mind that I'm still learning and may struggle with complex topics, so please follow up with humans!</p>
+      <div class="flex-col w-full">
+        <textarea id="prompt" name="prompt" type="text" placeholder="e.g. &quot;What does Islam say about AI?&quot;" autofocus=""></textarea>
+        <div class="flex-row justify-center w-full" style="margin-top: 16px;">
+          <button id="askButton" style="flex-grow: 1; max-width: 400px;" disabled="">Ask</button>
+        </div>
+      </div>
+    </div>
+  
+
+    <div id="page-2" class="content hidden">
+      <div class="w-full flex-col items-center htmx-indicator" style="padding: 16px;">
+        <img width="64" height="64" src="fonts/puff.svg">
+        <p style="display: inline;">Thinking...</p>
+      </div>
+    </div>
+
+    <div id="page-3" class="content hidden">
+      <!-- <p id="answer"></p> -->
+      <canvas id="shareCanvas" width="1080" height="1080"></canvas>
+      <div class="flex-row justify-center w-full" style="margin-top: 16px;">
+        <button id="flagButton" style="flex-grow: 1;">Flag</button>
+        <button id="shareButton" style="flex-grow: 1;">Share</button>
+      </div>
+      <p>I hope my answer was useful to you insha'Allah! If not, please flag it for review. Otherwise, please support this project by sharing your answer, or joining my mailing list for free to stay up to date on projects like this where Islam and technology intersect.</p>
+      <script async="" data-uid="50a6261ec3" src="https://crafty-innovator-9499.ck.page/50a6261ec3/index.js"></script>
+      <style>
+        .formkit-form[data-uid="50a6261ec3"] .formkit-powered-by-convertkit-container {
+          display: none;
+        }
+        .formkit-form[data-uid="50a6261ec3"] {
+          max-width: 100%;
+        }
+        .formkit-form[data-uid="50a6261ec3"][min-width~="700"] [data-style="clean"],
+        .formkit-form[data-uid="50a6261ec3"][min-width~="800"] [data-style="clean"] {
+          padding: 0;
+        }
+        .formkit-form[data-uid="50a6261ec3"] .formkit-input {
+          background-color: var(--background);
+        }
+        .formkit-form[data-uid="50a6261ec3"] .formkit-input::placeholder {
+          color: var(--form-placeholder);
+        }
+        .formkit-form[data-uid="50a6261ec3"] ul:not([template-default]) {
+          color: #ea4110;
+        }
+        .formkit-form[data-uid="50a6261ec3"] .formkit-fields {
+          flex-wrap: nowrap;
+        }
+        .formkit-form[data-uid="50a6261ec3"] .formkit-field {
+          flex: 1;
+        }
+        .formkit-form[data-uid="50a6261ec3"] .formkit-submit {
+          flex: 1;
+          flex-shrink: 1;
+          margin-left: 16px;
+        }
+      </style>
+      <div class="flex-row justify-center w-full" style="margin-top: 16px; margin-bottom: 16px;">
+        <button id="retryButton" style="flex-grow: 1;">Ask again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let latestPrompt = '';
+    let latestAnswer = '';
+
+    document.getElementById('prompt').addEventListener('input', () => {
+      const prompt = document.getElementById('prompt').value;
+      document.getElementById('askButton').disabled = prompt.length == 0;
+    });
+
+    document.getElementById('retryButton').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('page-3').classList.add('hidden');
+      document.getElementById('page-1').classList.remove('hidden');
+      document.getElementById('prompt').focus();
+      document.getElementById('askButton').disabled = false;
+    });
+
+    document.getElementById('flagButton').addEventListener('click', async e => {
+      e.preventDefault();
+      try {
+        const response = await fetch('https://red.amar.io/deen/flag', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: latestPrompt, answer: latestAnswer }),
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Something went wrong! Please try again.");
+        return;
+      }
+
+      alert("JazakAllahu khayran for helping improve deen.ai!");
+    });
+
+    document.getElementById('shareButton').addEventListener('click', async e => {
+      e.preventDefault();
+
+      const canvas = document.getElementById('shareCanvas');
+      const dataURL = canvas.toDataURL('image/png');
+
+      if (navigator.share && navigator.canShare) {
+        const blob = await (await fetch(dataURL)).blob();
+        const file = new File(
+          [blob],
+          'deen-ai.png',
+          {
+            type: blob.type,
+            lastModified: new Date().getTime()
+          }
+        );
+        if (navigator.canShare({ files: [ file ] })) {
+          navigator.share({
+            // title: 'deen.ai',
+            // text: 'deen.ai, an Islamic AI, answered my question!',
+            files: [file],
+          });
+          return;
+        }
+      }
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = 'deen-ai.png';
+      a.click();
+    });
+
+    const computeFontSize = (ctx, text, x, y, width, maxHeight) => {
+      const canvasTxt = window.canvasTxt.default
+      let fontSize = 100;
+      canvasTxt.fontSize = fontSize;
+
+      let h;
+      do {
+        fontSize -= 10;
+        canvasTxt.fontSize = fontSize;
+        const { height } = canvasTxt.drawText(ctx, text, 40, 40, 1000, maxHeight);
+        h = height;
+      } while (h > maxHeight);
+
+      return [ fontSize, h ];
+    };
+
+    const renderShareCanvas = (prompt, answer) => new Promise(resolve => {
+      const canvas = document.getElementById('shareCanvas');
+      const ctx = canvas.getContext('2d');
+
+      const img = new Image();
+      img.src = 'share-template.png';
+      img.onload = () => {
+        ctx.fillStyle = '#eef0f2';
+        ctx.textAlign = 'center';
+        const canvasTxt = window.canvasTxt.default
+        canvasTxt.font = 'Kanit';
+
+        const [ fontSizePrompt ] = computeFontSize(ctx, prompt, 40, 40, 1000, 210);
+        const [ fontSizeAnswer, heightAnswer ] = computeFontSize(ctx, answer, 40, 350, 1000, 640);
+
+        ctx.drawImage(img, 0, 0);
+
+        // ctx.strokeStyle = '#f00';
+        // ctx.lineWidth = 1;
+        // ctx.strokeRect(40, 40, 1000, 210);
+        // ctx.strokeRect(40, 350, 1000, 640);
+
+        ctx.fillStyle = '#c8c9cb';
+        canvasTxt.fontSize = fontSizePrompt;
+        canvasTxt.drawText(ctx, prompt, 40, 40, 1000, 210);
+        ctx.fillStyle = '#eef0f2';
+        canvasTxt.fontSize = fontSizeAnswer;
+        canvasTxt.drawText(ctx, answer, 40, 350, 1000, heightAnswer);
+
+        resolve();
+      }
+    });
+
+    document.getElementById('askButton').addEventListener('click', async e => {
+      e.preventDefault();
+
+      document.getElementById('page-1').classList.add('hidden');
+      document.getElementById('page-2').classList.remove('hidden');
+
+      const promptEl = document.getElementById('prompt');
+      const prompt = latestPrompt = promptEl.value = promptEl.value.trim();
+      // promptEl.value = '';
+      // document.getElementById('askButton').disabled = true;
+      let answer;
+
+      try {
+        const response = await fetch('https://red.amar.io/deen/prompt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+        });
+
+        answer = latestAnswer = await response.text();
+        // document.getElementById('answer').innerText = answer;
+      } catch (error) {
+        console.error(error);
+        alert("Something went wrong! Please try again.");
+        document.getElementById('page-2').classList.add('hidden');
+        document.getElementById('page-1').classList.remove('hidden');
+        return;
+      }
+
+      await renderShareCanvas(prompt, answer);
+
+      document.getElementById('page-2').classList.add('hidden');
+      document.getElementById('page-3').classList.remove('hidden');
+    });
+
+    document.getElementById('prompt').addEventListener('keyup', e => {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        document.getElementById('askButton').click();
+      }
+    });
+
+  </script>
+</body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schulte Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .table-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 10px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .cell {
+            background-color: hsl(0, 0%, 80%);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .cell:hover {
+            background-color: hsl(0, 0%, 70%);
+        }
+
+        .highlighted {
+            background-color: hsl(255, 100%, 50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-container">
+        <h1>Schulte Table</h1>
+        <table class="table"></table>
+        <button id="reload">Reload</button>
+    </div>
+
+    <script>
+        const table = document.querySelector('.table');
+        const reloadBtn = document.getElementById('reload');
+
+        function generateTable(size) {
+            const numbers = [...Array(size * size).keys()].map(i => i + 1);
+            numbers.sort(() => Math.random() - 0.5);
+
+            table.innerHTML = '';
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const cell = document.createElement('td');
+                    cell.classList.add('cell');
+                    cell.textContent = numbers[i * size + j];
+                    cell.addEventListener('click', () => {
+                        const highlightedCells = document.querySelectorAll('.highlighted');
+                        const nextIndex = parseInt(highlightedCells[highlightedCells.length - 1].textContent) + 1;
+                        if (cell.textContent === String(nextIndex)) {
+                            cell.classList.add('highlighted');
+                        }
+                    });
+                    table.appendChild(cell);
+                }
+            }
+
+            // Set random background color on reload
+            const randomHue = Math.floor(Math.random() * 360);
+            document.body.style.backgroundColor = `hsl(${randomHue}, 100%, 90%)`;
+        }
+
+        reloadBtn.addEventListener('click', () => {
+            generateTable(5); // Change this to desired table size
+        });
+
+        generateTable(5); // Change this to desired table size initially
+    </script>
+</body>
+
+</html>

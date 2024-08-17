@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Accessible Popup</title>
+    <style>
+        #popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 200px;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #popup.open,
+        #overlay.open {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="open-popup" aria-controls="popup" aria-haspopup="true">Open Popup</button>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div id="popup" class="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <h2 id="popupTitle">Accessible Popup</h2>
+        <p>This is an accessible popup example.</p>
+        <button id="close-popup">Close</button>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById('open-popup');
+        const closeBtn = document.getElementById('close-popup');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+
+        openBtn.addEventListener('click', function () {
+            popup.classList.add('open');
+            overlay.classList.add('open');
+            closeBtn.focus();
+        });
+
+        closeBtn.addEventListener('click', function () {
+            popup.classList.remove('open');
+            overlay.classList.remove('open');
+            openBtn.focus();
+        });
+    </script>
+</body>
+
+</html>

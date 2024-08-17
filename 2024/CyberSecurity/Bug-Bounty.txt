@@ -1,0 +1,36 @@
+Link:
+
+1. https://youtu.be/Rp69edBmFFo
+
+* https://overthewire.org/wargames/natas/
+
+* Username: natas0, Password: natas0, URL:      http://natas0.natas.labs.overthewire.org
+* https://www.wechall.net/10-levels-on-Natas.html
+* https://sourceforge.net/projects/juice-shop/files/v9.3.1/
+* https://gchq.github.io/CyberChef/
+* https://www.advania.co.uk/insights/blog/mssql-practical-injection-cheat-sheet/
+
+* https://perspectiverisk.com/
+* https://disbug.io/
+* https://www.hotjar.com/
+* https://www.invicti.com/blog/web-security/sql-injection-cheat-sheet/
+* https://tryhackme.com/
+* https://www.hackerone.com/
+* https://www.hackthebox.com/
+* https://www.jetbrains.com/pycharm/download/?section=windows
+* https://chromedriver.chromium.org/downloads
+
+
+
+
+Tools for Bug-Bounty Hunting
+
+1. VPN- 
+2. nmap- 
+3. sublister
+4. Burp- 
+
+
+Terms
+1. ffuf
+2. 
