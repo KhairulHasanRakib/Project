@@ -1,0 +1,17 @@
+<h1 id="id1">Hello World!</h1>
+<h1 id="id2">Hello Everyone!</h1>
+<link rel="stylesheet" href="style.css">
+<button id="id3" onclick="handleClick()">Click Me</button>
+<button id="id4" onclick="handleClick()">Click Me 2</button>
+<style>
+    h1{
+        background-color: yellow;
+    }
+</style>
+<script>
+    document.getElementById("id2").style.color="blue";
+    function handleClick(){
+        document.getElementById("id1").style.backgroundColor="red";
+    }
+</script>
+<link rel="stylesheet" href="script.js">
