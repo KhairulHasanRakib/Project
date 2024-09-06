@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Manager",
+  "version": "1.0",
+  "description": "Add or override cookies from a JSON file.",
+  "permissions": [
+    "cookies",
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Manage Cookies"
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
